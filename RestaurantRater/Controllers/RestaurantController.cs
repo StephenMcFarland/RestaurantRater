@@ -15,5 +15,27 @@ namespace RestaurantRater.Controllers
         {
             return View(db.Restaurants.ToList());
         }
+
+        // GET: Restaurant/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // Post: Restaurant/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Restaurant restaurant)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Restaurants.Add(restaurant);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(restaurant);
+
+        }
     }
 }
